@@ -1,6 +1,10 @@
+from dotenv import load_dotenv
+import os
 import requests as rq
 import pandas as pd
 import reflex as rx 
+
+load_dotenv()
 
 exoPlanetsURL = "https://api.nasa.gov/planetary/apod"
 
@@ -8,7 +12,7 @@ exoPlanetsURL = "https://api.nasa.gov/planetary/apod"
 def imageToBirthDay(birthDayDate):
     
     query_params = {
-        "api_key" : "ih7xhyTXkdeSg28QXFldWRRMkkBTKLwp5QqLByz6",
+        "api_key" : os.getenv("NASA_API_KEY"),
         "date" : birthDayDate
         }
     
