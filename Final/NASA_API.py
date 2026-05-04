@@ -16,11 +16,24 @@ def imageToBirthDay(birthDayDate):
         "date" : birthDayDate
         }
     
-    dataSet = rq.get(exoPlanetsURL, params = query_params)
-    dataBase = dataSet.json()
-    if isinstance(dataBase, dict):
-        dataBase = [dataBase]
+    try:
+        dataSet = rq.get(exoPlanetsURL, params = query_params, timeout=10)
+        if dataSet.status_code != 200:
+            return pd.DataFrame([{
+                'url': '', 
+                'title': 'Error', 
+                'explanation': 'No se pudo obtener la imagen. Verifica la fecha ingresada.'
+            }])
+        dataBase = dataSet.json()
+        if isinstance(dataBase, dict):
+            dataBase = [dataBase]
         dataFrame = pd.DataFrame(dataBase)
+    except Exception as e:
+        dataFrame = pd.DataFrame([{
+            'url': '', 
+            'title': 'Error', 
+            'explanation': f'Error de conexión: {str(e)}'
+        }])
     return dataFrame
 
 

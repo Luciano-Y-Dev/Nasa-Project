@@ -15,8 +15,8 @@ class State(rx.State):
     def obtener_datos(self):
         df = imageToBirthDay(self.fecha_nacimiento)
         titulo, info, url = img_title_info(df)
-        self.titulo_nasa = Gt(source='auto', target='es').translate(titulo)
-        self.info_nasa = Gt(source='auto', target='es').translate(info)
+        self.titulo_nasa = Gt(source='en', target='es').translate(titulo)
+        self.info_nasa = Gt(source='en', target='es').translate(info)
         self.url_nasa = url
         
 from .proyectPage2 import SecondPage
